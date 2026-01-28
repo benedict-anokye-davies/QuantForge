@@ -1,0 +1,34 @@
+{
+  "timestamp": "20260207_001246",
+  "features": [
+    "sma_10",
+    "ret_5",
+    "volatility",
+    "atr",
+    "vol_ratio",
+    "price_vs_sma50",
+    "rsi",
+    "price_vs_sma20",
+    "macd_signal",
+    "ret_20",
+    "strong_trend",
+    "ret_50",
+    "ret_200",
+    "sma_5",
+    "low_vol"
+  ],
+  "metrics": {
+    "accuracy": 0.5543071161048689,
+    "confident_accuracy": 0.5511111111111111,
+    "cumulative_return": 0.20916466077792584,
+    "sharpe": 1.177995589217768,
+    "max_drawdown": -0.08157325224878777,
+    "win_rate": 0.5104602510460251
+  },
+  "files": {
+    "xgb": "xgb_20260207_001246.json",
+    "lgb": "lgb_20260207_001246.txt",
+    "nn": "nn_20260207_001246.pkl",
+    "scaler": "scaler_20260207_001246.pkl"
+  }
+}

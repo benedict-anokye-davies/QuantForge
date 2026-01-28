@@ -1,0 +1,129 @@
+# Quant Researcher Configuration
+
+# Engine settings
+engine:
+  initial_cash: 100000.0
+  buffer_size: 1048576  # 1M events
+  workers: 8
+  enable_pre_warm: true
+  
+# Risk management
+risk:
+  kelly_fraction: 0.25
+  atr_lookback: 14
+  atr_multiplier: 2.0
+  max_drawdown: 0.20
+  daily_loss_limit: 10000.0
+  max_consecutive_losses: 5
+
+# Strategy configurations
+strategies:
+  # Mean Reversion
+  bollinger_bands:
+    window: 20
+    deviations: 2.0
+    
+  rsi:
+    period: 14
+    overbought: 70.0
+    oversold: 30.0
+    
+  zscore:
+    lookback: 20
+    threshold: 2.0
+    
+  # Momentum
+  macd:
+    fast_period: 12
+    slow_period: 26
+    signal_period: 9
+    
+  ema_crossover:
+    fast_period: 20
+    slow_period: 50
+    
+  breakout:
+    lookback: 20
+    multiplier: 2.0
+    
+  # Statistical Arbitrage
+  pairs_trading:
+    symbol1: "BTC/USD"
+    symbol2: "ETH/USD"
+    lookback: 20
+    entry_zscore: 2.0
+    exit_zscore: 0.5
+    
+  # Market Making
+  avellaneda_stoikov:
+    gamma: 0.1
+    sigma: 0.5
+    k: 1.5
+    q_max: 10.0
+    delta: 1.0
+    
+  simple_market_maker:
+    spread_bps: 10.0
+    base_size: 1.0
+    max_inventory: 100.0
+    
+  # Execution
+  vwap:
+    time_window: "1h"
+    num_slices: 10
+    
+  twap:
+    time_window: "1h"
+    num_slices: 10
+
+# Data sources
+data:
+  # SQLite for local storage
+  sqlite:
+    path: "./data/quant.db"
+    
+  # ClickHouse for high-volume data
+  clickhouse:
+    address: "localhost:9000"
+    database: "quant"
+    
+  # Memory-mapped files for historical data
+  mmap:
+    directory: "./data/mmap"
+
+# Server settings
+server:
+  # gRPC
+  grpc:
+    enabled: true
+    address: "0.0.0.0:50051"
+    
+  # WebSocket
+  websocket:
+    enabled: true
+    address: "0.0.0.0:8080"
+    
+  # REST API
+  rest:
+    enabled: true
+    address: "0.0.0.0:8081"
+
+# Exchange connections (for live trading)
+exchanges:
+  binance:
+    api_key: "${BINANCE_API_KEY}"
+    api_secret: "${BINANCE_API_SECRET}"
+    testnet: true
+    
+  coinbase:
+    api_key: "${COINBASE_API_KEY}"
+    api_secret: "${COINBASE_API_SECRET}"
+    passphrase: "${COINBASE_PASSPHRASE}"
+    sandbox: true
+
+# Logging
+logging:
+  level: "info"
+  format: "json"
+  output: "stdout"
+  file: "./logs/quant.log"

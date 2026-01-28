@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package quant;
+option go_package = "github.com/openclaw/skills/quant-researcher/pkg/proto";
+
+import "google/protobuf/timestamp.proto";
+
+// Tick represents a single market data tick
+message Tick {
+  google.protobuf.Timestamp timestamp = 1;
+  string symbol = 2;
+  double price = 3;
+  double volume = 4;
+  double bid = 5;
+  double ask = 6;
+  uint64 sequence = 7;  // Monotonic sequence for ordering
+}
+
+// Bar represents OHLCV aggregated data
+message Bar {
+  google.protobuf.Timestamp timestamp = 1;
+  string symbol = 2;
+  double open = 3;
+  double high = 4;
+  double low = 5;
+  double close = 6;
+  double volume = 7;
+  string timeframe = 8;  // 1m, 5m, 1h, 1d, etc.
+}
+
+// OrderBook represents L2 market depth
+message OrderBook {
+  google.protobuf.Timestamp timestamp = 1;
+  string symbol = 2;
+  repeated Level bids = 3;
+  repeated Level asks = 4;
+}
+
+message Level {
+  double price = 1;
+  double volume = 2;
+}
+
+// Trade represents a filled order
+message Trade {
+  google.protobuf.Timestamp timestamp = 1;
+  string symbol = 2;
+  string side = 3;  // BUY or SELL
+  double price = 4;
+  double quantity = 5;
+  string order_id = 6;
+  double fee = 7;
+  double slippage = 8;
+}
+
+// Signal represents a trading signal
+message Signal {
+  google.protobuf.Timestamp timestamp = 1;
+  string symbol = 2;
+  string strategy_id = 3;
+  string action = 4;  // BUY, SELL, HOLD
+  double confidence = 5;  // 0.0 to 1.0
+  map<string, double> metadata = 6;
+}
+
+// Order represents a trading order
+message Order {
+  string id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  string symbol = 3;
+  string side = 4;  // BUY or SELL
+  string order_type = 5;  // MARKET, LIMIT, STOP
+  double quantity = 6;
+  double price = 7;  // For limit orders
+  double stop_price = 8;  // For stop orders
+  string time_in_force = 9;  // GTC, IOC, FOK
+  string strategy_id = 10;
+}
+
+// Position represents current position
+message Position {
+  string symbol = 1;
+  double quantity = 2;
+  double entry_price = 3;
+  double current_price = 4;
+  double unrealized_pnl = 5;
+  double realized_pnl = 6;
+  google.protobuf.Timestamp opened_at = 7;
+}
+
+// Portfolio represents the entire portfolio state
+message Portfolio {
+  google.protobuf.Timestamp timestamp = 1;
+  double cash = 2;
+  double equity = 3;
+  map<string, Position> positions = 4;
+  double total_value = 5;
+  double margin_used = 6;
+}

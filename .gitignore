@@ -1,0 +1,54 @@
+# Binaries
+build/
+quant
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output
+*.out
+*.prof
+*.log
+
+# Database
+*.db
+*.db-journal
+*.sqlite
+
+# Data files
+data/
+*.csv
+*.parquet
+*.mmap
+
+# Config with secrets
+config.yaml
+config.json
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+vendor/
+go.sum
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Protobuf generated (keep proto files, ignore generated go files if needed)
+# *.pb.go
